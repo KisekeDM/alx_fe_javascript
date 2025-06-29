@@ -178,6 +178,85 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// =====================
+// SIMULATED SERVER SYNC
+// =====================
+
+// Mock server URL for fetching quotes
+const SERVER_URL = 'https://mocki.io/v1/your-actual-endpoint-id';
+
+// Track last sync state
+let lastServerQuotes = [];
+
+// Fetch from server every X seconds
+function startSyncInterval() {
+  setInterval(syncWithServer, 10000); // every 10 seconds
+}
+
+// Fetch server data and compare with local
+async function syncWithServer() {
+  try {
+    const response = await fetch(SERVER_URL);
+    const serverData = await response.json();
+
+    const hasConflict = detectConflicts(quotes, serverData);
+
+    if (hasConflict) {
+      // Server wins in this simple example
+      quotes = serverData;
+      saveQuotes();
+      populateCategories();
+      filterQuotes();
+
+      notifyUser("Quotes updated from server. Local changes may have been overwritten.");
+    }
+
+    lastServerQuotes = serverData;
+  } catch (err) {
+    console.error("Failed to fetch server data:", err);
+  }
+}
+
+// Conflict detection — very basic
+function detectConflicts(local, server) {
+  if (local.length !== server.length) return true;
+
+  for (let i = 0; i < local.length; i++) {
+    if (
+      local[i].text !== server[i]?.text ||
+      local[i].category !== server[i]?.category
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// OPTIONAL: Simulate POST to server
+async function postQuotesToServer() {
+  try {
+    await fetch(SERVER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(quotes),
+    });
+    notifyUser("Quotes synced with server.");
+  } catch (err) {
+    console.error("Failed to post data to server:", err);
+  }
+}
+
+function notifyUser(message) {
+  const note = document.getElementById("notification");
+  note.textContent = message;
+  setTimeout(() => {
+    note.textContent = "";
+  }, 5000);
+}
+
+startSyncInterval(); // Begin periodic syncing
+
+
 // === EVENT LISTENERS ===
 newQuoteBtn.addEventListener("click", showRandomQuote);
 addQuoteBtn.addEventListener("click", addQuote);
