@@ -240,7 +240,7 @@ async function syncQuotes() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(quotes),
     });
-    notifyUser("Quotes synced with server.");
+    notifyUser("Quotes synced with server!");
   } catch (err) {
     console.error("Failed to post data to server:", err);
   }
