@@ -233,7 +233,7 @@ function detectConflicts(local, server) {
 }
 
 // OPTIONAL: Simulate POST to server
-async function postQuotesToServer() {
+async function syncQuotes() {
   try {
     await fetch(SERVER_URL, {
       method: 'POST',
