@@ -12,7 +12,7 @@ const addQuoteBtn = document.getElementById("addQuoteBtn");
 const categoryFilter = document.getElementById("categoryFilter");
 
 // Function to show a random quote
-function showRandomQuote() {
+function displayRandomQuote() {
   const selectedCategory = categoryFilter.value;
   const filteredQuotes = selectedCategory === "all"
     ? quotes
