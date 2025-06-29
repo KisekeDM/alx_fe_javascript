@@ -194,7 +194,7 @@ function startSyncInterval() {
 }
 
 // Fetch server data and compare with local
-async function syncWithServer() {
+async function fetchQuotesFromServer() {
   try {
     const response = await fetch(SERVER_URL);
     const serverData = await response.json();
