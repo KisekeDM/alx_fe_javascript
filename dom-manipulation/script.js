@@ -33,7 +33,7 @@ function showRandomQuote() {
 }
 
 // Function to add a new quote
-function addQuote() {
+function createAddQuoteForm() {
   const quoteTextInput = document.getElementById("newQuoteText");
   const quoteCategoryInput = document.getElementById("newQuoteCategory");
 
