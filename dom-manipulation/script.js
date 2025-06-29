@@ -183,7 +183,7 @@ window.addEventListener("DOMContentLoaded", () => {
 // =====================
 
 // Mock server URL for fetching quotes
-const SERVER_URL = 'https://mocki.io/v1/your-actual-endpoint-id';
+const SERVER_URL = 'https://jsonplaceholder.typicode.com/posts';
 
 // Track last sync state
 let lastServerQuotes = [];
