@@ -1,7 +1,7 @@
 let quotes = [];
 
 // === LOAD/SAVE QUOTES ===
-function loadQuotes() {
+function createAddQuoteForm() {
   const stored = localStorage.getItem("quotes");
   quotes = stored ? JSON.parse(stored) : getDefaultQuotes();
   saveQuotes(); // Ensure storage exists
